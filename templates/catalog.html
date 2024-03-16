@@ -13,18 +13,23 @@
                 <th scope="col">ISBN</th>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
-                <th scope="col">Description</th>               
+                <th scope="col">Description</th>       
+                <th scope="col">Price</th>          
              </tr>
           </thead>
           <tbody>
             <!-- Your rows inside the table HERE: -->
             {% for book in books %}
+            {% include 'include/buy_modals.html' %}
            
             <tr>
                <td> {{ book[0] }} </td>
                <td> {{ book[1] }} </td>
                <td> {{ book[2] }} </td>
-               <td> {{ book[3] }} </td>               
+               <td> {{ book[3] }} </td> 
+               <td> {{ book[5] }} $ </td>    
+               <td>
+                  <button class="btn btn-info" data-toggle="modal" data-target="#Modal-PurchaseConfirm"> Buy </button>           
             </tr>
             {% endfor %}
          </tbody>
