@@ -1,6 +1,6 @@
  
  <!-- Purchase Confirm -->
- <div class="modal fade" id="Modal-PurchaseConfirm"
+ <div class="modal fade" id="Modal-PurchaseConfirm-{{book.isbn}}"
  tabindex="-1"
  aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -8,11 +8,11 @@
   <div class="modal-header d-flex justify-content-end">
     <h5 class="modal-title" id="ModalLabel">
       <!-- -->
-      Buying
+      Buying {{book.title}}
     </h5>
     
     <button type="button" class="close"
-            data-dismiss="modal" aria-label="Close">
+            data-bs-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
 
@@ -23,7 +23,7 @@
       {{purchaseForm.hidden_tag()}}
       
       <h4 class="text-center">
-          Are you sure you want to buy ?
+          Are you sure you want to buy {{book.title}} for {{book.price}}$?
       </h4>
       <br>
       <h6 class="text-center">
@@ -31,7 +31,7 @@
       </h6>
       
       <br>
-      <input id="purchaseBook" name="purchaseBook" type="hidden" value="book">
+      <input id="purchaseBook" name="purchaseBook" type="hidden" value="{{book.title}}">
       <div class="text-center">
       {{purchaseForm.submit(class="btn btn-outline-success btn-block")}}
       </div>
@@ -39,7 +39,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
   </div>
 
 </div>

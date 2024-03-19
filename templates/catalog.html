@@ -26,13 +26,13 @@ Books Catalog
          {% include 'include/buy_modals.html' %}
         
          <tr>
-            <td> {{ book[0] }} </td>
-            <td> {{ book[1] }} </td>
-            <td> {{ book[2] }} </td>
-            <td> {{ book[3] }} </td> 
-            <td> {{ book[5] }} $ </td>    
+            <td> {{ book.isbn }} </td>
+            <td> {{ book.title }} </td>
+            <td> {{ book.author }} </td>
+            <td> {{ book.description }} </td> 
+            <td> {{ book.price }} $ </td>    
             <td>
-               <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Modal-PurchaseConfirm"> Buy </button>           
+               <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Modal-PurchaseConfirm-{{book.isbn}}"> Buy </button>           
          </tr>
          {% endfor %}
       </tbody>
