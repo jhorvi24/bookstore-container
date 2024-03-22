@@ -20,17 +20,22 @@ def catalog():
     print("Entrando a ruta")
     if request.method == 'POST': #if the request method is POST, the form was submitted and the user wants to purchase a book
         print("Entrando a post")
-        purchaseBook = request.form.get('purchaseBook') #get the value of the purchaseBook field from the form data
-        print(purchaseBook)
-        a_book = Books.query.filter_by(title=purchaseBook).first() #query the Books table for the book with the specified title
-        if a_book:
-            a_book.amount -= 1 #decrement the amount of the book by 1
-            db.session.commit() #commit the changes to the database
-            flash(f'Book {a_book.title} purchased successfully!', category='success') #display a success message
-        elif a_book.amount == 0:
-            flash(f'Book {a_book.title} is out of stock!', category='error') #display an error message if the book is out of stock
-        return redirect(url_for('catalog')) #redirect the user to the catalog page after the purchase is complete
-    
+        if current_user.is_authenticated: #check if the user is authenticated
+            print("Entrando a if")
+            print(current_user.username)
+            purchaseBook = request.form.get('purchaseBook') #get the value of the purchaseBook field from the form data
+            print(purchaseBook)
+            a_book = Books.query.filter_by(title=purchaseBook).first() #query the Books table for the book with the specified title
+            if a_book and a_book.amount>0:
+                a_book.amount -= 1 #decrement the amount of the book by 1
+                db.session.commit() #commit the changes to the database
+                flash(f'Book {a_book.title} purchased successfully!', category='success') #display a success message
+            elif a_book.amount == 0:
+                flash(f'Book {a_book.title} is out of stock!', category='error') #display an error message if the book is out of stock
+            return redirect(url_for('catalog')) #redirect the user to the catalog page after the purchase is complete
+        else:
+            flash('You must be logged in to purchase a book!', category='error') #display an error message if the user is not authenticated
+            return redirect(url_for('login')) #redirect the user to the login page after displaying the error message
     
     if request.method == 'GET': #if the request method is GET, the form was not submitted and the user wants to view the catalog
         
@@ -67,6 +72,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         attempted_user = Users.query.filter_by(username=form.username.data).first()
+        print(attempted_user)
         if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
             login_user(attempted_user)
             flash(f'Success! You are logged in as: {attempted_user.username}', category='success')
@@ -76,6 +82,12 @@ def login():
             return redirect(url_for('login'))
 
     return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been logged out!', category='info')
+    return redirect(url_for('home'))
 
 @app.route('/cart')
 def cart():
