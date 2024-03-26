@@ -6,9 +6,6 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 
 @app.route('/')
-def index():
-    return render_template('base.html')
-
 @app.route('/home')
 def home():
     return render_template('index.html')
@@ -20,12 +17,10 @@ def catalog():
     print("Entrando a ruta")
     if request.method == 'POST': #if the request method is POST, the form was submitted and the user wants to purchase a book
         print("Entrando a post")
-        if current_user.is_authenticated: #check if the user is authenticated
-            print("Entrando a if")
-            print(current_user.username)
-            purchaseBook = request.form.get('purchaseBook') #get the value of the purchaseBook field from the form data
-            print(purchaseBook)
+        if current_user.is_authenticated: #check if the user is authenticated            
+            purchaseBook = request.form.get('purchaseBook') #get the value of the purchaseBook field from the form data            
             a_book = Books.query.filter_by(title=purchaseBook).first() #query the Books table for the book with the specified title
+            
             if a_book and a_book.amount>0:
                 a_book.amount -= 1 #decrement the amount of the book by 1
                 db.session.commit() #commit the changes to the database
@@ -38,11 +33,7 @@ def catalog():
             return redirect(url_for('login')) #redirect the user to the login page after displaying the error message
     
     if request.method == 'GET': #if the request method is GET, the form was not submitted and the user wants to view the catalog
-        
-        #conn = sqlite3.connect('db/catalog.db') #connect to database
-        #cursor = conn.cursor() #create a cursor object to interact with the database
-        #cursor.execute('SELECT * FROM books') #execute a SQL query to retrieve all books from the database
-        #books = cursor.fetchall()  #fetch all rows from the cursor and store them in the books variable. Book is a list of tuples. Each tuple represents a book.
+                
         books = Books.query.all() #query the Books table and retrieve all books
         
         return render_template('catalog.html', purchaseForm=purchaseForm, books=books) #render the catalog template and pass the books variable to it
@@ -88,11 +79,5 @@ def logout():
     logout_user()
     flash('You have been logged out!', category='info')
     return redirect(url_for('home'))
-
-@app.route('/cart')
-def cart():
-    return render_template('cart.html')
     
-@app.route('/order')
-def order():
-    return render_template('order.html')
+

@@ -1,4 +1,4 @@
-#This is a project for build one bookstore using microservices architecture
+#This is a project for build a bookstore
 
 from books_ecommerce import app
 
