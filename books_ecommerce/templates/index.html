@@ -7,24 +7,66 @@
 {% block content %}
 
      <!-- Header-->
-     <header class="bg-dark py-5">
-
-   
+     <header class="bg-dark py-5">   
                
     </header>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol xmlns="http://www.w3.org/2000/svg" id="cart-outline" fill="currentColor" viewBox="-8 0 32 32">
+      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="quality" fill="currentColor" viewBox="-8 0 32 32">
+        <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
+        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+      </symbol>
+    </svg> 
+
+
 
     <div class="container text-center text-light">
       <div class="row">
         <div class="col">
-          <img class="img-fluid" object-fit src="{{ url_for('static', filename='assets/img/bookstore.jpg')}}" alt="..." />
+          <div class="container py-4">
+            <div class="h-50">
+              <img class="img-fluid rounded"  src="{{ url_for('static', filename='assets/img/bookstore.jpg')}}" alt="..." />
+            </div>
+          </div>
+          
         </div>
         <div class="col">
           <h1 class="display-4 fw-bolder">Welcome to the Knowledge BookStore</h1>
-          <p class="lead fw-normal text-white-50 mb-0">The best bookstore in the World</p>                        
+          <p class="lead fw-normal text-white-50 mb-0">The best bookstore in the World</p> 
+
+         
+          <a href="{{ url_for('catalog')}}" class="btn btn-secondary mt-4 mb-4">Shop Books</a>
+          
+          <div class="icon-box-content text-center">
+            <h3 class="card-title text-center text-light">Free delivery</h3>
+            <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
+          </div>
+          
+          <svg class="cart-outline">
+            <use xlink:href="#cart-outline" />
+          </svg>
+
+          <div class="icon-box-content text-center">
+            <h3 class="card-title text-center text-light">Quality guarantee</h3>
+            <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
+          </div>
+          <svg class="quality">
+            <use xlink:href="#quality" />
+          </svg>
+          
+          
+          
+
         </div>
        
       </div>
-  </div>
+    </div>
+
+    
+    
+
+ 
 
 
 
